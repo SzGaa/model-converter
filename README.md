@@ -1,4 +1,4 @@
-# Obj Reader Test Project for Shapr3d
+# Moderl Converter Experimantal Project
 
 Experimental project using modern tools and c++ features.
 - c++23
@@ -26,5 +26,5 @@ Example build of the project using cmake & ninja.
 ```
 cmake -Bbuild -GNinja . -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 cmake --build build
-./build/main
+./build/convert_model ./data/test.obj ./data/test.stl
 ```

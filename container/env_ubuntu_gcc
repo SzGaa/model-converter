@@ -1,0 +1,26 @@
+FROM ubuntu:25.04
+
+	# install dev tools
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Etc/UTC
+RUN apt-get update && apt-get install -y \
+	gcc-15 g++-15 \
+	git ninja-build  \
+	vim wget
+
+WORKDIR /tools
+RUN wget https://github.com/Kitware/CMake/releases/download/v4.0.2/cmake-4.0.2-linux-x86_64.sh
+RUN chmod +x cmake-4.0.2-linux-x86_64.sh
+RUN ./cmake-4.0.2-linux-x86_64.sh --skip-license
+ENV PATH=$PATH:/tools/bin
+
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-15 60
+RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-15 60
+
+# bug - https://gitlab.kitware.com/cmake/cmake/-/issues/26758
+RUN mkdir -p /usr/lib/gcc/x86_64-linux-gnu/include/
+RUN ln -s    /usr/include/c++/ /usr/lib/gcc/x86_64-linux-gnu/include/c++
+
+ENV CMAKE_BUILD_TYPE=Release
+RUN git config --global core.autocrlf true
+WORKDIR /app

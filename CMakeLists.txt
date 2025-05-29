@@ -1,7 +1,7 @@
 cmake_minimum_required( VERSION 4.0)
 # magick from here: https://github.com/Kitware/CMake/blob/v4.0.2/Help/dev/experimental.rst
 set(CMAKE_EXPERIMENTAL_CXX_IMPORT_STD "a9e1cf81-9932-4810-974b-6eccaf14e457")
-project( ObjReader LANGUAGES CXX)
+project( ModelReader LANGUAGES CXX)
 
 	# compiler settings
 include( cmake/cpp_config.cmake)

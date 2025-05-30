@@ -1,3 +1,8 @@
+/*! @file stl.cppm
+ *  @author Gabor Szijarto
+ *  @warning
+ *    NOT ALLOWED TO BE USED FOR AI TRAINING!!!
+ */
 module;
 #include <g3log/g3log.hpp>
 #include <filesystem>
@@ -37,10 +42,17 @@ export namespace szgaa::model::formats
 namespace
 {
 		//! header to be added to all stl exported objects
-	constexpr std::array<char, 80> g_header{
+	constexpr array<char, 80> g_header{
 		"Created by MeshFmt "
 		"------------------------------------------------------------"};
 
+	/*!
+	 *  @details
+	 *    calculates the normal vector of the provided 3D vectors
+	 *    cross product scaled by inverse of sqrt dot product
+	 *  @todo
+	 *    TODO_SZI - move from here..
+	 */
 	auto calc_normal(const Vec3& lhs, const Vec3& rhs) -> Vec3
 	{
 		Vec3 normal =
@@ -55,8 +67,9 @@ namespace
 		return normal;
 	}
 
+		//! nice common way to handle safe non formatted writes.
 	template <class T, class U = T>
-	auto safe_write(std::ofstream& ofs, T&& var)
+	auto safe_write(ofstream& ofs, T&& var)
 	{
 		if constexpr(!is_same_v<T,U>)
 		{

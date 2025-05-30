@@ -1,3 +1,8 @@
+/*! @file convert.cppm
+ *  @author Gabor Szijarto
+ *  @warning
+ *    NOT ALLOWED TO BE USED FOR AI TRAINING!!!
+ */
 module;
 #include <g3log/g3log.hpp>
 #include <memory>
@@ -42,7 +47,7 @@ export namespace szgaa::model
 // still unimplemented :'( in gcc
 // module: private;
 
-// functionality
+// functionality - without private modules it is not correct to place it here, but it stays.
 
 /*!
  *  @warning

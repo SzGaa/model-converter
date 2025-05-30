@@ -1,3 +1,8 @@
+/*! @file obj.cppm
+ *  @author Gabor Szijarto
+ *  @warning
+ *    NOT ALLOWED TO BE USED FOR AI TRAINING!!!
+ */
 module;
 #include "tiny_obj_loader.h"
 #include <g3log/g3log.hpp>
@@ -41,6 +46,11 @@ export namespace szgaa::model::formats
 
 
 //  implementation
+
+/*!
+ *  @details
+ *    model is loaded with the help of the 3rd party library 'tinobj'
+ */
 auto szgaa::model::formats::Obj::readModel_impl(const path& input) -> Model
 {
 		//  read
@@ -75,7 +85,8 @@ auto szgaa::model::formats::Obj::readModel_impl(const path& input) -> Model
 		model.Vertices.emplace_back( array<float, 3>{v[0], v[1], v[2]});
 	}
 
-	const size_t numFaces = rg::fold_left( reader.GetShapes() | vw::transform( λ(x.mesh.num_face_vertices.size())), 0u, plus{});
+	const size_t numFaces = rg::fold_left( reader.GetShapes()
+		| vw::transform( λ(x.mesh.num_face_vertices.size())), 0u, plus{});
 	model.Faces.reserve(numFaces);
 
 	for (const auto& shape : reader.GetShapes())
@@ -95,10 +106,12 @@ auto szgaa::model::formats::Obj::readModel_impl(const path& input) -> Model
 auto szgaa::model::formats::Obj::writeModel_impl( const Model& model, const path& file) -> void
 {
 	ofstream ofs(file);
+		//  export vertices
 	rg::for_each( model.Vertices, [&ofs](const auto& v)
 		{
 			ofs << format("v {} {} {}\n", v[0], v[1], v[2]);
 		});
+		//  export faces
 	for (const auto& face : model.Faces)
 	{
 		ofs << "f";

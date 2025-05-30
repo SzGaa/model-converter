@@ -1,3 +1,8 @@
+/*! @file format.cppm
+ *  @author Gabor Szijarto
+ *  @warning
+ *    NOT ALLOWED TO BE USED FOR AI TRAINING!!!
+ */
 module;
 #include <g3log/g3log.hpp>
 #include <string>
@@ -15,19 +20,20 @@ export namespace szgaa::model
 
 	/*!
 	 *  @details
-	 *    Internal representation of objects
+	 *    Internal representation of 3D objects
 	 */
 	struct Model
 	{
 			//! vertices defining the object
 		vector<Vec3> Vertices;
-			//! each face is described via a vector of indices of Vertices
+			//! each face is described via a vector of indices of Vertices associated with it
 		vector<vector<size_t>> Faces;
 	};
 
 	/*!
 	 *  @details
 	 *    non pure interface that allows the different format handling through a unified manner
+	 *    base class for concrete implementations
 	 */
 	class ModelFormat
 	{
@@ -78,7 +84,7 @@ namespace
 		auto ret = operation();
 		const auto end = high_resolution_clock::now();
 		LOG(INFO) << "operation took "
-			<< duration_cast<std::chrono::milliseconds>(end - start).count() << " [ms]";
+			<< duration_cast<milliseconds>(end - start).count() << " [ms]";
 		return ret;
 	};
 
@@ -89,7 +95,6 @@ auto szgaa::model::ModelFormat::readModel(const path& file) -> Model
 	LOG(INFO) << "reading model: " << file << " using " << _name;
 	auto model = log_ms( [&](){ return readModel_impl(file); });
 	return readModel_impl(file);
-	return model;
 }
 
 auto szgaa::model::ModelFormat::writeModel(const Model& model, const path& file) -> void

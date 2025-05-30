@@ -23,4 +23,4 @@ target_sources(convert_model PRIVATE
 	"src/model/formats/obj.cppm" "src/model/formats/stl.cppm"
 )
 
-target_link_libraries(convert_model PRIVATE stdc++exp g3log tinyobjloader tinyobjloader)
+target_link_libraries(convert_model PRIVATE stdc++exp g3log tinyobjloader)

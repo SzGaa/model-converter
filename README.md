@@ -26,5 +26,7 @@ Example build of the project using cmake & ninja.
 ```
 cmake -Bbuild -GNinja . -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 cmake --build build
-./build/convert_model ./data/test.obj ./data/test.stl
+./build/convert_model ./data/teapot.obj
 ```
+
+Use https://3dviewer.net/ to inspect the original and the generated files.

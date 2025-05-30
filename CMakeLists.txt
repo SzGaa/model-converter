@@ -11,7 +11,8 @@ include(FetchContent)
 include( cmake/libs/g3log.cmake)
 include( cmake/libs/gtest.cmake)
 include( cmake/libs/benchmark.cmake)
-FetchContent_MakeAvailable( g3log gtest benchmark)
+include( cmake/libs/tinyobjloader.cmake)
+FetchContent_MakeAvailable( g3log gtest benchmark tinyobjloader)
 
 	#  srcs
 include_directories( "${PROJECT_SOURCE_DIR}/src" "${g3sinks_SOURCE_DIR}/sink_snippets/src")
@@ -21,7 +22,7 @@ target_sources(convert_model PRIVATE
 		# model
 	"src/model/format.cppm" "src/model/convert.cppm"
 			# formats
-	"src/model/formats/obj.cppm"
+	"src/model/formats/obj.cppm" "src/model/formats/stl.cppm"
 )
 
-target_link_libraries(convert_model PRIVATE stdc++exp g3log)
+target_link_libraries(convert_model PRIVATE stdc++exp g3log tinyobjloader tinyobjloader)

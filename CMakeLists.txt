@@ -9,10 +9,8 @@ include( cmake/cpp_config.cmake)
 	# deps
 include(FetchContent)
 include( cmake/libs/g3log.cmake)
-include( cmake/libs/gtest.cmake)
-include( cmake/libs/benchmark.cmake)
 include( cmake/libs/tinyobjloader.cmake)
-FetchContent_MakeAvailable( g3log gtest benchmark tinyobjloader)
+FetchContent_MakeAvailable( g3log tinyobjloader)
 
 	#  srcs
 include_directories( "${PROJECT_SOURCE_DIR}/src" "${g3sinks_SOURCE_DIR}/sink_snippets/src")

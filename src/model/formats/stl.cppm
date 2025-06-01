@@ -67,6 +67,18 @@ namespace
 		return normal;
 	}
 
+	/*!
+	 *  @details
+	 *    Vector subtraction
+	 *  @todo
+	 *    TODO_SZI - move from here..
+	 */
+	auto operator-(const Vec3& lhs, const Vec3& rhs) -> Vec3
+	{
+		return { lhs[0] - rhs[0], lhs[1] - rhs[1], lhs[2] - rhs[2] };
+	}
+
+
 		//! nice common way to handle safe non formatted writes.
 	template <class T, class U = T>
 	auto safe_write(ofstream& ofs, T&& var)
@@ -89,7 +101,6 @@ namespace
  */
 auto szgaa::model::formats::Stl::writeModel_impl(const Model& model, const path& file) -> void
 {
-	using namespace std;
 	static_assert(endian::native == endian::little,
 		"Only little-endian architectures are supported");
 	ofstream ofs(file);
@@ -115,7 +126,8 @@ auto szgaa::model::formats::Stl::writeModel_impl(const Model& model, const path&
 			LOG(WARNING) << "non triangle face - " << face.size();
 			continue;
 		}
-		const auto normal = calc_normal( model.Vertices[face[0]], model.Vertices[face[1]]);
+		const auto ref = model.Vertices[face[0]];
+		const auto normal = calc_normal( model.Vertices[face[1]] - ref, model.Vertices[face[2]] - ref);
 		safe_write( ofs, normal);
 		for (const auto& id : face)
 		{

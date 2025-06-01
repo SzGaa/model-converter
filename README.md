@@ -1,4 +1,4 @@
-# Moderl Converter Experimantal Project
+# Model Converter Experimantal Project
 
 Experimental project using modern tools and c++ features.
 - c++23
